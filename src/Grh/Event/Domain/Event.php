@@ -3,10 +3,12 @@ namespace CTIC\Grh\Event\Domain;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use CTIC\App\Base\Domain\IdentifiableTrait;
 use CTIC\Grh\Event\Domain\Validation\EventValidation;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="CTIC\Grh\Event\Infrastructure\Repository\EventRepository")
  */
 class Event implements EventInterface

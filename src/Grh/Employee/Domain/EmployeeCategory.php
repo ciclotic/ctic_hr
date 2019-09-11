@@ -2,11 +2,13 @@
 namespace CTIC\Grh\Employee\Domain;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use CTIC\App\Base\Domain\IdentifiableTrait;
 use CTIC\Grh\Employee\Domain\Validation\EmployeeCategoryValidation;
 use CTIC\App\User\Domain\User;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="CTIC\Grh\Employee\Infrastructure\Repository\EmployeeCategoryRepository")
  */
 class EmployeeCategory implements EmployeeCategoryInterface

@@ -4,11 +4,13 @@ namespace CTIC\Grh\Employee\Domain;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use CTIC\App\Base\Domain\IdentifiableTrait;
 use CTIC\Grh\Employee\Domain\Validation\EmployeeValidation;
 use CTIC\App\User\Domain\User;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="CTIC\Grh\Employee\Infrastructure\Repository\EmployeeRepository")
  */
 class Employee implements EmployeeInterface

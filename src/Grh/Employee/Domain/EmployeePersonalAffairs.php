@@ -3,10 +3,12 @@ namespace CTIC\Grh\Employee\Domain;
 
 use CTIC\Grh\Employee\Domain\Validation\EmployeePersonalAffairsValidation;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use CTIC\App\Base\Domain\IdentifiableTrait;
 use CTIC\App\User\Domain\User;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="CTIC\Grh\Employee\Infrastructure\Repository\EmployeePersonalAffairsRepository")
  */
 class EmployeePersonalAffairs implements EmployeePersonalAffairsInterface

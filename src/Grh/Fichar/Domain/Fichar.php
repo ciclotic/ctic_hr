@@ -3,10 +3,12 @@ namespace CTIC\Grh\Fichar\Domain;
 
 use CTIC\Grh\Employee\Domain\Employee;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use CTIC\App\Base\Domain\IdentifiableTrait;
 use CTIC\Grh\Fichar\Domain\Validation\FicharValidation;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="CTIC\Grh\Fichar\Infrastructure\Repository\FicharRepository")
  */
 class Fichar implements FicharInterface

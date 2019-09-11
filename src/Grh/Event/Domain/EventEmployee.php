@@ -3,10 +3,12 @@ namespace CTIC\Grh\Event\Domain;
 
 use CTIC\Grh\Employee\Domain\Employee;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use CTIC\App\Base\Domain\IdentifiableTrait;
 use CTIC\Grh\Event\Domain\Validation\EventEmployeeValidation;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="CTIC\Grh\Event\Infrastructure\Repository\EventEmployeeRepository")
  */
 class EventEmployee implements EventEmployeeInterface

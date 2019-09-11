@@ -1,0 +1,9 @@
+{% extends "/Crud/form.html.twig" %}
+
+{% block content %}
+    <div class="container-fluid show-{{ metadata.name|lower }}">
+        {% include '/Crud/Form/_header.html.twig' %}
+
+        {% include '/Event/Show/_content.html.twig' %}
+    </div>
+{% endblock %}

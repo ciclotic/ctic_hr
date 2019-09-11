@@ -1,0 +1,26 @@
+{% extends '/base.html.twig' %}
+
+{% set definition = resources.definition %}
+{% set data = resources.data %}
+
+{% set header = metadata.parameters.header|default(metadata.pluralName) %}
+
+{% block title %}- Formulario {{ header }} - {{ data.name|default('Nuevo') }}{% endblock %}
+
+{% block description %}Formulario {{ header }} {{ data.name|default('Nuevo') }}.{% endblock %}
+
+{% block content %}
+    <div class="container-fluid form-{{ metadata.name|lower }}">
+        {% include '/Crud/Form/_header.html.twig' %}
+
+        {% include '/Crud/Form/_content.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block scriptsjs %}
+    {{ parent() }}
+{% endblock %}

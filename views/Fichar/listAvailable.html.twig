@@ -1,0 +1,41 @@
+{% extends '/base.html.twig' %}
+
+{% set definition = resources.definition %}
+{% set data = resources.data %}
+
+{% set header = metadata.parameters.header|default(metadata.pluralName) %}
+
+{% block title %}- Listado de personas trabajando {{ header }}{% endblock %}
+
+{% block description %}Listado de personas trabajando.{% endblock %}
+
+{% block content %}
+    <div class="container-fluid index-{{ metadata.name|lower }}">
+        <br><br><br>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <caption>Listado de empleados trabajando</caption>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Fecha de entrada</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for employeeEntry in resources %}
+                        <tr>
+                            <th scope="row">{{ employeeEntry.id }}</th>
+                            <th scope="row">{{ employeeEntry.employee.name }}</th>
+                            <th scope="row">{{ employeeEntry.employee.surname }}</th>
+                            <th scope="row">{{ employeeEntry.date.format('Y-m-d H:i:s') }}</th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

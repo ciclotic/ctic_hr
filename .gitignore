@@ -1,0 +1,5 @@
+img/employee/*
+!img/employee/control.pdf
+credentials/*
+!credentials/control.txt
+credentials.json

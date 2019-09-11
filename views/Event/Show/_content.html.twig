@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Nombre</label>
+                {{ resource.name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Descripción</label>
+                {{ resource.description|raw }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>iCal UID</label>
+                {{ resource.iCalUID }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Fecha inicio evento</label>
+                {{ resource.fromDate|date("m/d/Y H:i:s") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Cambio de turno dentro del mismo evento</label>
+                {{ resource.shiftChangeDate|date("m/d/Y H:i:s") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Final de evento</label>
+                {{ resource.toDate|date("m/d/Y H:i:s") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Empleados por cartegoría</label>
+                {% for employeesByCategory in resumeEmployeesByCategory %}
+                <b>{{ employeesByCategory.name }}</b>: {{ employeesByCategory.employees }}<br>
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        {% include '/Form/Buttons/_cancel.html.twig' with {'paths': {'cancel': path('GET_' ~ metadata.parameters.route.root ~ '_' ~  metadata.parameters.route.actions.list, configuration.vars.route.parameters|default({}))}} %}
+    </div>
+</div>

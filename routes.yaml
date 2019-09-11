@@ -1,0 +1,458 @@
+dashboard:
+    path:     /
+    defaults:
+        _controller: 'CTIC\Grh\Dashboard\Infrastructure\DashboardController'
+        _controller_method: 'indexAction'
+        _controller_create: 'CTIC\Grh\Dashboard\Application\CreateDashboardController'
+
+login:
+    path:     /login
+    defaults:
+        _controller: 'CTIC\App\User\Infrastructure\LoginController'
+        _controller_method: 'loginAction'
+        _controller_create: 'CTIC\App\User\Application\CreateLoginController'
+
+logout:
+    path:     /logout
+    defaults:
+        _controller: 'CTIC\App\User\Infrastructure\LoginController'
+        _controller_method: 'logoutAction'
+        _controller_create: 'CTIC\App\User\Application\CreateLoginController'
+
+# Fichar
+
+fichar:
+    path:     /fichar
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Fichar\Infrastructure\FicharController'
+        _controller_method: 'ficharAction'
+        _controller_create: 'CTIC\Grh\Fichar\Application\CreateFicharController'
+
+GET_fichar_listado:
+    path:     /fichar/listado
+    defaults:
+        _controller: 'CTIC\Grh\Fichar\Infrastructure\FicharController'
+        _controller_method: 'indexAction'
+        _controller_create: 'CTIC\Grh\Fichar\Application\CreateFicharController'
+
+GET_fichar_listado_trabajando:
+    path:     /fichar/listadotrabajando
+    defaults:
+        _controller: 'CTIC\Grh\Fichar\Infrastructure\FicharController'
+        _controller_method: 'availableAction'
+        _controller_create: 'CTIC\Grh\Fichar\Application\CreateFicharController'
+
+GET_fichar_mostrar:
+    path:     /fichar/mostrar/{id}
+    defaults:
+        _controller: 'CTIC\Grh\Fichar\Infrastructure\FicharController'
+        _controller_method: 'showAction'
+        _controller_create: 'CTIC\Grh\Fichar\Application\CreateFicharController'
+
+GET_fichar_crear:
+    path:     /fichar/crear
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Fichar\Infrastructure\FicharController'
+        _controller_method: 'createAction'
+        _controller_create: 'CTIC\Grh\Fichar\Application\CreateFicharController'
+
+GET_fichar_modificar:
+    path:     /fichar/modificar/{id}
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Fichar\Infrastructure\FicharController'
+        _controller_method: 'updateAction'
+        _controller_create: 'CTIC\Grh\Fichar\Application\CreateFicharController'
+
+POST_fichar_eliminar:
+    path:     /fichar/eliminar/{id}
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Fichar\Infrastructure\FicharController'
+        _controller_method: 'deleteAction'
+        _controller_create: 'CTIC\Grh\Fichar\Application\CreateFicharController'
+
+POST_fichar_eliminargrupo:
+    path:     /fichar/eliminargrupo
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Fichar\Infrastructure\FicharController'
+        _controller_method: 'bulkDeleteAction'
+        _controller_create: 'CTIC\Grh\Fichar\Application\CreateFicharController'
+
+POST_fichar_descargar:
+    path:     /fichar/descargar
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Fichar\Infrastructure\FicharController'
+        _controller_method: 'downloadAction'
+        _controller_create: 'CTIC\Grh\Fichar\Application\CreateFicharController'
+
+# Report
+
+informes:
+    path:     /informes
+    defaults:
+        _controller: 'CTIC\Grh\Report\Infrastructure\ReportController'
+        _controller_method: 'indexAction'
+        _controller_create: 'CTIC\Grh\Report\Application\CreateReportController'
+
+# Event
+
+GET_trabajadores_available:
+    path:     /trabajadores/disponibles
+    defaults:
+        _controller: 'CTIC\Grh\Event\Infrastructure\EventController'
+        _controller_method: 'getAvailableEmployeesAction'
+        _controller_create: 'CTIC\Grh\Event\Application\CreateEventController'
+
+GET_calendario:
+    path:     /calendario
+    defaults:
+        _controller: 'CTIC\Grh\Event\Infrastructure\EventController'
+        _controller_method: 'calendarAction'
+        _controller_create: 'CTIC\Grh\Event\Application\CreateEventController'
+
+GET_eventos_listado:
+    path:     /eventos/listado
+    defaults:
+        _controller: 'CTIC\Grh\Event\Infrastructure\EventController'
+        _controller_method: 'indexAction'
+        _controller_create: 'CTIC\Grh\Event\Application\CreateEventController'
+
+GET_eventos_mostrar:
+    path:     /eventos/mostrar/{id}
+    defaults:
+        _controller: 'CTIC\Grh\Event\Infrastructure\EventController'
+        _controller_method: 'showAction'
+        _controller_create: 'CTIC\Grh\Event\Application\CreateEventController'
+
+GET_eventos_crear:
+    path:     /eventos/crear
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Event\Infrastructure\EventController'
+        _controller_method: 'createAction'
+        _controller_create: 'CTIC\Grh\Event\Application\CreateEventController'
+
+GET_eventos_modificar:
+    path:     /eventos/modificar/{id}
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Event\Infrastructure\EventController'
+        _controller_method: 'updateAction'
+        _controller_create: 'CTIC\Grh\Event\Application\CreateEventController'
+
+POST_eventos_eliminar:
+    path:     /eventos/eliminar/{id}
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Event\Infrastructure\EventController'
+        _controller_method: 'deleteAction'
+        _controller_create: 'CTIC\Grh\Event\Application\CreateEventController'
+
+POST_eventos_eliminargrupo:
+    path:     /eventos/eliminargrupo
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Event\Infrastructure\EventController'
+        _controller_method: 'bulkDeleteAction'
+        _controller_create: 'CTIC\Grh\Event\Application\CreateEventController'
+
+POST_eventos_descargar:
+    path:     /eventos/descargar
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Event\Infrastructure\EventController'
+        _controller_method: 'downloadAction'
+        _controller_create: 'CTIC\Grh\Event\Application\CreateEventController'
+
+# Employee
+
+GET_trabajadores_listado:
+    path:     /trabajadores/listado
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeController'
+        _controller_method: 'indexAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeController'
+
+GET_trabajadores_mostrar:
+    path:     /trabajadores/mostrar/{id}
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeController'
+        _controller_method: 'showAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeController'
+
+GET_trabajadores_novacion_crear:
+    path:     /trabajadores/novacion/crear
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeController'
+        _controller_method: 'growthAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeController'
+
+GET_trabajadores_crear:
+    path:     /trabajadores/crear
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeController'
+        _controller_method: 'createAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeController'
+
+GET_trabajadores_modificar:
+    path:     /trabajadores/modificar/{id}
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeController'
+        _controller_method: 'updateAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeController'
+
+POST_trabajadores_eliminar:
+    path:     /trabajadores/eliminar/{id}
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeController'
+        _controller_method: 'deleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeController'
+
+POST_trabajadores_eliminargrupo:
+    path:     /trabajadores/eliminargrupo
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeController'
+        _controller_method: 'bulkDeleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeController'
+
+POST_trabajadores_descargar:
+    path:     /trabajadores/descargar
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeController'
+        _controller_method: 'downloadAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeController'
+
+# Employee Category
+
+GET_trabajadores_categoria_listado:
+    path:     /trabajadores/categoria/listado
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeCategoryController'
+        _controller_method: 'indexAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeCategoryController'
+
+GET_trabajadores_categoria_mostrar:
+    path:     /trabajadores/categoria/mostrar/{id}
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeCategoryController'
+        _controller_method: 'showAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeCategoryController'
+
+GET_trabajadores_categoria_crear:
+    path:     /trabajadores/categoria/crear
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeCategoryController'
+        _controller_method: 'createAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeCategoryController'
+
+GET_trabajadores_categoria_modificar:
+    path:     /trabajadores/categoria/modificar/{id}
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeCategoryController'
+        _controller_method: 'updateAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeCategoryController'
+
+POST_trabajadores_categoria_eliminar:
+    path:     /trabajadores/categoria/eliminar/{id}
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeCategoryController'
+        _controller_method: 'deleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeCategoryController'
+
+POST_trabajadores_categoria_eliminargrupo:
+    path:     /trabajadores/categoria/eliminargrupo
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeCategoryController'
+        _controller_method: 'bulkDeleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeCategoryController'
+
+POST_trabajadores_categoria_descargar:
+    path:     /trabajadores/categoria/descargar
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeCategoryController'
+        _controller_method: 'downloadAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeCategoryController'
+
+# Employee Area
+
+GET_trabajadores_area_listado:
+    path:     /trabajadores/area/listado
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeAreaController'
+        _controller_method: 'indexAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeAreaController'
+
+GET_trabajadores_area_mostrar:
+    path:     /trabajadores/area/mostrar/{id}
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeAreaController'
+        _controller_method: 'showAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeAreaController'
+
+GET_trabajadores_area_crear:
+    path:     /trabajadores/area/crear
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeAreaController'
+        _controller_method: 'createAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeAreaController'
+
+GET_trabajadores_area_modificar:
+    path:     /trabajadores/area/modificar/{id}
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeAreaController'
+        _controller_method: 'updateAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeAreaController'
+
+POST_trabajadores_area_eliminar:
+    path:     /trabajadores/area/eliminar/{id}
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeAreaController'
+        _controller_method: 'deleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeAreaController'
+
+POST_trabajadores_area_eliminargrupo:
+    path:     /trabajadores/area/eliminargrupo
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeAreaController'
+        _controller_method: 'bulkDeleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeAreaController'
+
+POST_trabajadores_area_descargar:
+    path:     /trabajadores/area/descargar
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeAreaController'
+        _controller_method: 'downloadAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeAreaController'
+
+# Employee Low
+
+GET_trabajadores_baja_listado:
+    path:     /trabajadores/baja/listado
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeLowController'
+        _controller_method: 'indexAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeLowController'
+
+GET_trabajadores_baja_mostrar:
+    path:     /trabajadores/baja/mostrar/{id}
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeLowController'
+        _controller_method: 'showAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeLowController'
+
+GET_trabajadores_baja_crear:
+    path:     /trabajadores/baja/crear
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeLowController'
+        _controller_method: 'createAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeLowController'
+
+GET_trabajadores_baja_modificar:
+    path:     /trabajadores/baja/modificar/{id}
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeLowController'
+        _controller_method: 'updateAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeLowController'
+
+POST_trabajadores_baja_eliminar:
+    path:     /trabajadores/baja/eliminar/{id}
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeLowController'
+        _controller_method: 'deleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeLowController'
+
+POST_trabajadores_baja_eliminargrupo:
+    path:     /trabajadores/baja/eliminargrupo
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeLowController'
+        _controller_method: 'bulkDeleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeLowController'
+
+POST_trabajadores_baja_descargar:
+    path:     /trabajadores/baja/descargar
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeeLowController'
+        _controller_method: 'downloadAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeeLowController'
+
+# Employee PersonalAffairs
+
+GET_trabajadores_asuntos_personales_listado:
+    path:     /trabajadores/asuntos_personales/listado
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeePersonalAffairsController'
+        _controller_method: 'indexAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeePersonalAffairsController'
+
+GET_trabajadores_asuntos_personales_mostrar:
+    path:     /trabajadores/asuntos_personales/mostrar/{id}
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeePersonalAffairsController'
+        _controller_method: 'showAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeePersonalAffairsController'
+
+GET_trabajadores_asuntos_personales_crear:
+    path:     /trabajadores/asuntos_personales/crear
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeePersonalAffairsController'
+        _controller_method: 'createAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeePersonalAffairsController'
+
+GET_trabajadores_asuntos_personales_modificar:
+    path:     /trabajadores/asuntos_personales/modificar/{id}
+    methods:  [GET, POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeePersonalAffairsController'
+        _controller_method: 'updateAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeePersonalAffairsController'
+
+POST_trabajadores_asuntos_personales_eliminar:
+    path:     /trabajadores/asuntos_personales/eliminar/{id}
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeePersonalAffairsController'
+        _controller_method: 'deleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeePersonalAffairsController'
+
+POST_trabajadores_asuntos_personales_eliminargrupo:
+    path:     /trabajadores/asuntos_personales/eliminargrupo
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeePersonalAffairsController'
+        _controller_method: 'bulkDeleteAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeePersonalAffairsController'
+
+POST_trabajadores_asuntos_personales_descargar:
+    path:     /trabajadores/asuntos_personales/descargar
+    methods:  [POST]
+    defaults:
+        _controller: 'CTIC\Grh\Employee\Infrastructure\EmployeePersonalAffairsController'
+        _controller_method: 'downloadAction'
+        _controller_create: 'CTIC\Grh\Employee\Application\CreateEmployeePersonalAffairsController'

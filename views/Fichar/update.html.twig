@@ -1,0 +1,9 @@
+{% extends "/Crud/form.html.twig" %}
+
+{% block content %}
+    <div class="container-fluid update-{{ metadata.name|lower }}">
+        {% include '/Crud/Form/_header.html.twig' %}
+
+        {% include '/Fichar/Update/_content.html.twig' %}
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "/base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/fullcalendar.min.css' />
+    <link rel='stylesheet' href='/css/fullcalendar.print.css' />
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid calendar-{{ metadata.name|lower }}">
+        <div class="row page-title-div">
+            <div class="col-md-12">
+                <h4 class="title">Calendario de eventos</h4>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row breadcrumb-div">
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                    <li class="active">Calendario de eventos</li>
+                </ul>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+
+        <div class="container-fluid section">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <a href="/calendario" class="btn btn-primary">Refrescar</a>
+                    <a href="https://calendar.google.com/calendar/r/eventedit" target="_blank" class="btn btn-primary">Crear</a>
+                </div>
+            </div>
+        </div>
+
+        <div id='calendar'></div>
+    </div>
+{% endblock %}
+
+{% block scriptsjs %}
+    <script src='/js/moment.js'></script>
+    <script src='/js/fullcalendar.min.js'></script>
+
+    <script type="text/javascript">
+        $('#calendar').fullCalendar({
+            themeSystem: 'bootstrap4',
+            events: [
+                {% for event in events %}
+                    {% set start = event.start.dateTime %}
+                    {% if start is empty %}
+                        {% set start = event.start.date %}
+                    {% endif %}
+                    {
+                        title: '{{ event.summary }}',
+                        start: '{{ start }}',
+                        {% if event.iCalUID in iCalUIDsInGrh|keys %}
+                            url: '/eventos/modificar/{{ iCalUIDsInGrh[event.iCalUID].id }}',
+                            className: 'eventInGrh',
+                        {% else %}
+                            url: '/eventos/crear?iCalUID={{ event.iCalUID }}',
+                        {% endif %}
+                    },
+                {% endfor %}
+            ],
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listMonth'
+            },
+            dayClick: function() {
+                alert('Se ha hecho click en un d�a!');
+            }
+        });
+    </script>
+{% endblock %}

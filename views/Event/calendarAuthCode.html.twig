@@ -1,0 +1,40 @@
+{% extends "/base.html.twig" %}
+
+{% block content %}
+    <div class="container-fluid calendarauthcode-{{ metadata.name|lower }}">
+        <div class="row page-title-div">
+            <div class="col-md-12">
+                <h4 class="title">Calendario de eventos - AuthCode</h4>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row breadcrumb-div">
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                    <li class="active">Calendario de eventos - AuthCode</li>
+                </ul>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+
+        <div class="container-fluid section">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        Abre el siguiente link en una nueva pestaña: <a href='{{ authUrl }}' target='_blank'>Autorización para Google Calendar</a>
+                    </p>
+                    <p>
+                        Entra el código de autorización:
+                    </p>
+                    <form action='/calendario' method='GET'>
+                        <input type='text' class="form-control" name='authCode'/>
+                        <input type='submit' class="btn btn-success" value='Enviar'/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

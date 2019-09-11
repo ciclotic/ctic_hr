@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Gestión RRHH {% block title %}- Dashboard{% endblock %} - cicloTIC</title>
+    <!-- TODO <link rel="icon" href="img/icon.png">-->
+    <meta name="description" content="Gestión RRHH. {% block description %}Trabajadores, calendario, fichar y informes.{% endblock %}">
+    <meta name="keywords" content="Gestión,RRHH,Trabajadores,Calendario,Fichar,Informes">
+    <meta name="author" content="Valentí Gàmez">
+
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Gestión RRHH {{ block('title') }} - cicloTIC">
+    <!-- TODO <meta property="og:url" content="https://www.ciclotic.com">-->
+    <meta property="og:site_name" content="Gestión RRHH{{ block('title') }} - cicloTIC">
+    <!-- TODO <meta property="fb:app_id" content="111">-->
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Gestión RRHH {{ block('title') }} - cicloTIC">
+
+    <meta property="og:description" content="Gestión RRHH. {{ block('description') }}">
+    <!-- TODO <meta property="og:image" content="http://www.valentigamez.com/blog/images/bienvenidos.jpg">
+    <meta property="og:image:secure_url" content="https://www.valentigamez.com/blog/images/bienvenidos.jpg">-->
+
+    <meta property="twitter:description" content="Gestión RRHH. {{ block('description') }}">
+    <!-- TODO <meta property="twitter:image" content="https://www.valentigamez.com/blog/images/bienvenidos.jpg">-->
+
+    <!-- ========== COMMON STYLES ========== -->
+    <link rel="stylesheet" href="/lib/options-admin/css/bootstrap.min.css" media="screen" >
+    <link rel="stylesheet" href="/lib/options-admin/css/font-awesome.min.css" media="screen" >
+    <link rel="stylesheet" href="/lib/options-admin/css/animate-css/animate.min.css" media="screen">
+    <link rel="stylesheet" href="/lib/options-admin/css/lobipanel/lobipanel.min.css" media="screen">
+
+    <!-- ========== PAGE STYLES ========== -->
+    <link rel="stylesheet" href="/lib/options-admin/css/prism/prism.css" media="screen" > <!-- USED FOR DEMO HELP - YOU CAN REMOVE IT -->
+    <link rel="stylesheet" href="/lib/options-admin/css/toastr/toastr.min.css" media="screen" >
+    <link rel="stylesheet" href="/lib/options-admin/css/icheck/skins/line/blue.css" >
+    <link rel="stylesheet" href="/lib/options-admin/css/icheck/skins/line/red.css" >
+    <link rel="stylesheet" href="/lib/options-admin/css/icheck/skins/line/green.css" >
+
+    <!-- ========== THEME CSS ========== -->
+    <link rel="stylesheet" href="/lib/options-admin/css/main.min.css" media="screen" >
+
+    <link rel="stylesheet" href="/lib/options-admin/css/font-awesome.min.css" media="screen" >
+
+    <!-- ========== OWN CSS ========== -->
+    <link rel="stylesheet" href="/css/main.css" media="screen" >
+
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="top-navbar-fixed pace-done">
+<div class="main-wrapper">
+    <header>
+        <nav class="navbar top-navbar bg-black-300 box-shadow">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="navbar-header no-padding">
+                        <a class="navbar-brand" href="/">
+                            <img src="/img/logoLetras.png" alt="Gestión RRHH - cicloTIC" class="logo">
+                        </a>
+                        <span class="small-nav-handle hidden-sm hidden-xs"><i class="fa fa-outdent"></i></span>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <button type="button" class="navbar-toggle mobile-nav-toggle">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+                    <!-- /.navbar-header -->
+
+                    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                        <ul class="nav navbar-nav" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                            <li class="hidden-sm hidden-xs"><a href="#" class="user-info-handle"><i class="fa fa-user"></i></a></li>
+                            <li class="hidden-sm hidden-xs"><a href="#" class="full-screen-handle"><i class="fa fa-arrows-alt"></i></a></li>
+                            <li><a href="/">Gestión RRHH</a></li>
+                        </ul>
+                        <!-- /.nav navbar-nav -->
+
+                        <ul class="nav navbar-nav navbar-right" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle bg-primary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus-circle"></i> Crear <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="https://calendar.google.com/calendar/r/eventedit" target="_blank"><i class="fa fa-plus-square-o"></i> Evento</a></li>
+                                    <li><a href="/trabajadores/crear"><i class="fa fa-plus-square-o"></i> Empleado</a></li>
+                                    <li><a href="/trabajadores/categoria/crear"><i class="fa fa-plus-square-o"></i> Categoría de empleado</a></li>
+                                    <li><a href="/trabajadores/area/crear"><i class="fa fa-plus-square-o"></i> Área de empleado</a></li>
+                                    <li><a href="/trabajadores/baja/crear"><i class="fa fa-plus-square-o"></i> Baja de empleado</a></li>
+                                    <li><a href="/fichar/crear"><i class="fa fa-plus-square-o"></i> Entrada / Salida</a></li>
+                                    <li><a href="/trabajadores/asuntos_personales/crear"><i class="fa fa-plus-square-o"></i> Asuntos personales de empleado</a></li>
+                                    <li><a href="/trabajadores/novacion/crear"><i class="fa fa-plus-square-o"></i> Carta de novación contractual</a></li>
+                                </ul>
+                            </li>
+                            <!-- /.dropdown -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-th"></i></a>
+                                <div class="row dropdown-menu profile-dropdown">
+                                    {{ include('appsMenu.html.twig') }}
+                                </div>
+                            </li>
+                            <!-- /.dropdown -->
+                            <li><a href="#" class="hidden-xs hidden-sm open-right-sidebar"><i class="fa fa-question"></i></a></li>
+                        </ul>
+                        <!-- /.nav navbar-nav navbar-right -->
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </nav>
+    </header>
+
+    <section>
+        <div class="content-wrapper">
+            <div class="left-sidebar bg-black-300 box-shadow">
+                <div class="sidebar-content">
+                    <div class="user-info">
+                        <img src="http://placehold.it/90/c2c2c2?text=User" alt="John Doe" class="img-circle profile-img">
+                        {% if configuration.request is defined %}<h6 class="title">{{ configuration.request.user }}</h6>{% endif %}
+                        {{ include('company.html.twig') }}
+                    </div>
+                    <!-- /.user-info -->
+
+                    <div class="sidebar-nav">
+                        <ul class="side-nav child-nav color-gray">
+                            <li>
+                                <a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            </li>
+                            <li class="has-children">
+                                <a href="/trabajadores/listado"><i class="fa fa-users"></i> <span>Trabajadores</span> <i class="fa fa-angle-right arrow"></i></a>
+                                <ul class="child-nav" style="display: none;">
+                                    <li><a href="/trabajadores/listado"><i class="fa fa-list"></i> <span>Listado</span></a></li>
+                                    <li><a href="/trabajadores/crear"><i class="fa fa-user-plus"></i> <span>Crear trabajador</span></a></li>
+                                    <li><a href="/trabajadores/categoria/listado"><i class="fa fa-list"></i> <span>Categoría</span></a></li>
+                                    <li><a href="/trabajadores/categoria/crear"><i class="fa fa-user-plus"></i> <span>Crear categoría</span></a></li>
+                                    <li><a href="/trabajadores/area/listado"><i class="fa fa-list"></i> <span>Área</span></a></li>
+                                    <li><a href="/trabajadores/area/crear"><i class="fa fa-user-plus"></i> <span>Crear área</span></a></li>
+                                    <li><a href="/trabajadores/baja/listado"><i class="fa fa-list"></i> <span>Baja</span></a></li>
+                                    <li><a href="/trabajadores/baja/crear"><i class="fa fa-user-plus"></i> <span>Crear baja</span></a></li>
+                                    <li><a href="/trabajadores/asuntos_personales/listado"><i class="fa fa-list"></i> <span>Asuntos personales</span></a></li>
+                                    <li><a href="/trabajadores/asuntos_personales/crear"><i class="fa fa-user-plus"></i> <span>Crear asuntos personales</span></a></li>
+                                    <li><a href="/trabajadores/novacion/crear"><i class="fa fa-user-plus"></i> <span>Crear novación contractual</span></a></li>
+                                </ul>
+                            </li>
+                            <li class="has-children">
+                                <a href="/calendario/semana"><i class="fa fa-calendar"></i> <span>Calendario</span> <i class="fa fa-angle-right arrow"></i></a>
+                                <ul class="child-nav" style="display: none;">
+                                    <li><a href="/eventos/listado"><i class="fa fa-list"></i> <span>Listado</span></a></li>
+                                    <li><a href="/calendario"><i class="fa fa-calendar"></i> <span>Calendario</span></a></li>
+                                </ul>
+                            </li>
+                            <li class="has-children">
+                                <a href="/fichar/listado"><i class="fa fa-exchange"></i> <span>Fichar</span> <i class="fa fa-angle-right arrow"></i></a>
+                                <ul class="child-nav" style="display: none;">
+                                    <li><a href="/fichar"><i class="fa fa-exchange"></i> <span>Fichar</span></a></li>
+                                    <li><a href="/fichar/listado"><i class="fa fa-bars"></i> <span>Listado</span></a></li>
+                                    <li><a href="/fichar/listadotrabajando"><i class="fa fa-bars"></i> <span>Personas trabajando</span></a></li>
+                                    <li><a href="/fichar/crear"><i class="fa fa-user-plus"></i> <span>Crear</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="/informes"><i class="fa fa-bar-chart"></i> <span>Informes</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-nav -->
+                </div>
+                <!-- /.sidebar-content -->
+            </div>
+
+            <div class="main-page">
+                {% block content %}{% endblock %}
+            </div>
+
+            <div class="right-sidebar bg-white fixed-sidebar">
+                <div class="sidebar-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Cómo funciona <i class="fa fa-times close-icon"></i></h4>
+                                <p>Toda la información necesaria para hacer servir esta página.</p>
+                            </div>
+                            <!-- /.col-md-12 -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- /.sidebar-content -->
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ========== COMMON JS FILES ========== -->
+<script src="/lib/options-admin/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="/lib/options-admin/js/jquery-ui/jquery-ui.min.js"></script>
+<script src="/lib/options-admin/js/bootstrap/bootstrap.min.js"></script>
+<script src="/lib/options-admin/js/pace/pace.min.js"></script>
+<script src="/lib/options-admin/js/lobipanel/lobipanel.min.js"></script>
+<script src="/lib/options-admin/js/iscroll/iscroll.js"></script>
+
+<!-- ========== PAGE JS FILES ========== -->
+<script src="/lib/options-admin/js/prism/prism.js"></script>
+<script src="/lib/options-admin/js/waypoint/waypoints.min.js"></script>
+<script src="/lib/options-admin/js/counterUp/jquery.counterup.min.js"></script>
+<script src="/lib/options-admin/js/amcharts/amcharts.js"></script>
+<script src="/lib/options-admin/js/amcharts/serial.js"></script>
+<script src="/lib/options-admin/js/amcharts/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="/lib/options-admin/js/amcharts/plugins/export/export.css" type="text/css" media="all" />
+<script src="/lib/options-admin/js/amcharts/themes/light.js"></script>
+<script src="/lib/options-admin/js/toastr/toastr.min.js"></script>
+<script src="/lib/options-admin/js/icheck/icheck.min.js"></script>
+
+<!-- ========== THEME JS ========== -->
+<script src="/lib/options-admin/js/main.js"></script>
+<script src="/lib/options-admin/js/production-chart.js"></script>
+<script src="/lib/options-admin/js/traffic-chart.js"></script>
+<script src="/lib/options-admin/js/task-list.js"></script>
+
+<!-- ========== OWN JS ========== -->
+<script src="/js/main.js"></script>
+
+{% block scriptsjs %}{% endblock %}
+</body>
+</html>

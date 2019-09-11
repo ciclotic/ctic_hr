@@ -1,0 +1,35 @@
+{% import '/Form/theme.html.twig' as formTheme %}
+
+<div class="row">
+    <div class="col-md-12">
+        <form  name="{{ form.vars.name }}" method="{{ form.vars.method }}" action="{{ path('GET_' ~ metadata.parameters.route.root ~ '_' ~  metadata.parameters.route.actions.update, {'id': resource.id}) }}">
+            <div class="row">
+                <div class="col-md-4">
+                    {{ formTheme.form_row(form.children.employee) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ formTheme.form_row(form.children.date) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ formTheme.form_row(form.children.action) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ formTheme.form_row(form.children.latitude) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ formTheme.form_row(form.children.longitude) }}
+                </div>
+            </div>
+            <br>
+            {% include '/Form/Buttons/_update.html.twig' with {'paths': {'cancel': path('GET_' ~ metadata.parameters.route.root ~ '_' ~  metadata.parameters.route.actions.list, configuration.vars.route.parameters|default({}))}} %}
+        </form>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+{% extends '/base.html.twig' %}
+
+{% set definition = resources.definition %}
+{% set data = resources.data %}
+
+{% set header = metadata.parameters.header|default(metadata.pluralName) %}
+
+{% block title %}- Listado {{ header }}{% endblock %}
+
+{% block description %}Listado de {{ header }}.{% endblock %}
+
+{% block content %}
+    <div class="container-fluid index-{{ metadata.name|lower }}">
+        {% include '/Crud/List/_header.html.twig' %}
+
+        {% include '/Event/List/_content.html.twig' %}
+    </div>
+{% endblock %}

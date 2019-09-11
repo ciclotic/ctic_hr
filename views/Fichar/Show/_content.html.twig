@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Empleado</label>
+                {{ resource.employee.name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Fecha</label>
+                {{ resource.date|date("m/d/Y") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Acción</label>
+                {{ resource.action }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Latitude</label>
+                {{ resource.latitude }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Longitude</label>
+                {{ resource.longitude }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Location</label>
+                <a href="https://www.google.com/maps/place/{{ resource.latitude }}+{{ resource.longitude }}" target="_blank">Ver en Google Maps</a>
+            </div>
+        </div>
+        <br>
+        {% include '/Form/Buttons/_cancel.html.twig' with {'paths': {'cancel': path('GET_' ~ metadata.parameters.route.root ~ '_' ~  metadata.parameters.route.actions.list, configuration.vars.route.parameters|default({}))}} %}
+    </div>
+</div>

@@ -1,0 +1,1006 @@
+{% extends "base.html.twig" %}
+{% import '/Form/theme.html.twig' as formTheme %}
+{% import '/Macro/buttons.html.twig' as buttons %}
+
+{% block title %}- Report{% endblock %}
+
+{% block description %}Trabajadores, calendario, fichar y informes.{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row page-title-div">
+            <div class="col-md-12">
+                <h4 class="title">Informes</h4>
+                <p class="sub-title">Gestor de recursos humanos.</p>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row breadcrumb-div">
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                    <li class="active">Informes</li>
+                </ul>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+
+        <!-- Filtros -->
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel-group acc-panels" id="accordionFilters" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingFilters">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordionFilters" href="#collapseFilters" aria-expanded="true" aria-controls="collapseFilters">
+                                    Filtros
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFilters" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFilters">
+                            <div class="panel-body">
+                                <div class="content active">
+                                    <form method="POST" action="/informes">
+                                        <input type="hidden" name="ctic_app_report_filter[send]" value="0">
+                                        <input type="hidden" name="ctic_app_report_filter[sendFichar]" value="0">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                {{ formTheme.form_row(form.children.fromDate) }}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{ formTheme.form_row(form.children.toDate) }}
+                                            </div>
+                                        </div>
+                                        {{ buttons.filter() }}
+                                        {{ buttons.resetFilters() }}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="container-fluid section pt-10">
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="POST" action="/informes">
+                        <input type="hidden" name="ctic_app_report_filter[send]" value="1">
+                        <input type="hidden" name="ctic_app_report_filter[sendFichar]" value="0">
+                        <div class="row hidden">
+                            <div class="col-md-4">
+                                {{ formTheme.form_row(form.children.fromDate) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ formTheme.form_row(form.children.toDate) }}
+                            </div>
+                        </div>
+                        <button class="btn btn-success" type="submit">
+                            <i class="fa fa-send"></i> Enviar relación de eventos al correo de cada trabajador
+                        </button>
+                    </form>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top" data-panel-control>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Relación de eventos por trabajador interno</h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- /.src-code -->
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Eventos</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for value in reportEventDatesPerEmployeeInt %}
+                                    <tr>
+                                        <td>
+                                            {{ value.employee }}
+                                        </td>
+                                        <td>
+                                            {% for event in value.events %}
+                                                {{ event }}<br>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top" data-panel-control>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Relación de eventos por trabajador subcontratado</h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- /.src-code -->
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Eventos</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for value in reportEventDatesPerEmployeeSub %}
+                                    <tr>
+                                        <td>
+                                            {{ value.employee }}
+                                        </td>
+                                        <td>
+                                            {% for event in value.events %}
+                                                {{ event }}<br>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-md-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="POST" action="/informes">
+                        <input type="hidden" name="ctic_app_report_filter[send]" value="0">
+                        <input type="hidden" name="ctic_app_report_filter[sendFichar]" value="1">
+                        <div class="row hidden">
+                            <div class="col-md-4">
+                                {{ formTheme.form_row(form.children.fromDate) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ formTheme.form_row(form.children.toDate) }}
+                            </div>
+                        </div>
+                        <button class="btn btn-success" type="submit">
+                            <i class="fa fa-send"></i> Enviar control de presencia al correo de cada trabajador
+                        </button>
+                    </form>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top" data-panel-control>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Relación de entradas/salidas del control de presencia por trabajador interno</h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- /.src-code -->
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Días</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for value in reportFicharByDateAndDayListInt %}
+                                    <tr>
+                                        <td>
+                                            {{ value.employee }}
+                                        </td>
+                                        <td>
+                                            {% for event in value.events %}
+                                                {{ event }}<br>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top" data-panel-control>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Relación de entradas/salidas del control de presencia subcontratado</h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- /.src-code -->
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Días</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for value in reportFicharByDateAndDayListSub %}
+                                    <tr>
+                                        <td>
+                                            {{ value.employee }}
+                                        </td>
+                                        <td>
+                                            {% for event in value.events %}
+                                                {{ event }}<br>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-md-12 -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top" data-panel-control>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Relación total de horas por trabajador <small>Descargar</small></h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chart-reportHoursPerEmployeeByMonth" class="op-chart"></div>
+                            <!-- /.src-code -->
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Horas</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for value in reportHoursPerEmployeeByMonth %}
+                                    <tr>
+                                        <td>
+                                            {{ value.employee }}
+                                        </td>
+                                        <td>
+                                            {{ value.hours }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-md-12 -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top" data-panel-control>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Relación del coste del personal por evento <small>Descargar</small></h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chart-reportCostPerEmployeeByEvent" class="op-chart"></div>
+                            <!-- /.src-code -->
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Evento</th>
+                                    <th>Empleados por categoría</th>
+                                    <th>Coste concierto</th>
+                                    <th>Coste discoteca</th>
+                                    <th>Coste</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for value in reportCostPerEmployeeByEvent %}
+                                    <tr>
+                                        <td>
+                                            {{ value.date }}
+                                        </td>
+                                        <td>
+                                            {{ value.event }}
+                                        </td>
+                                        <td>
+                                            {{ value.categories|raw }}
+                                        </td>
+                                        <td>
+                                            {{ value.costConcert }}
+                                        </td>
+                                        <td>
+                                            {{ value.costDisco }}
+                                        </td>
+                                        <td>
+                                            {{ value.cost }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-md-12 -->
+            </div>
+            <!-- /.row -->
+
+
+            {% if lastEmployeeIdLow != 1 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top" data-panel-control>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Resumen de bajas / altas <small>Descargar</small></h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chart-reportEmployeeLowByDate" class="op-chart"></div>
+                            <!-- /.src-code -->
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Bajas / Altas</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for value in reportEmployeeLowByDate %}
+                                    <tr>
+                                        <td>
+                                            {{ value.date }}
+                                        </td>
+                                        <td>
+                                            {% for property in value|cast_to_array %}
+                                                {% if 'desde-fecha' in property.0 %}
+                                                    {% set employee = property.0|split('desde-fecha') %}
+                                                    Baja {{ employee[0]|replace({'-': ' '}) }} {{ attribute(value, "empleado-" ~ employee[0] ~ "-surname")|replace({'-': ' '}) }}<br>
+                                                {% endif %}
+                                                {% if 'hasta-fecha' in property.0 %}
+                                                    {% set employee = property.0|split('hasta-fecha') %}
+                                                    Alta {{ employee[0]|replace({'-': ' '}) }} {{ attribute(value, "empleado-" ~ employee[0] ~ "-surname")|replace({'-': ' '}) }}<br>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-md-12 -->
+            </div>
+            <!-- /.row -->
+            {% endif %}
+
+
+            {% if lastEmployeeIdPersonalAffairs != 1 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top" data-panel-control>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Resumen de asuntos personales <small>Descargar</small></h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chart-reportEmployeePersonalAffairsByDate" class="op-chart"></div>
+                            <!-- /.src-code -->
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Inicio / Fin</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for value in reportEmployeePersonalAffairsByDate %}
+                                    <tr>
+                                        <td>
+                                            {{ value.date }}
+                                        </td>
+                                        <td>
+                                            {% for property in value|cast_to_array %}
+                                                {% if 'desde-fecha' in property.0 %}
+                                                    {% set employee = property.0|split('desde-fecha') %}
+                                                    Inicio {{ employee[0]|replace({'-': ' '}) }} {{ attribute(value, "empleado-" ~ employee[0] ~ "-surname")|replace({'-': ' '}) }}<br>
+                                                {% endif %}
+                                                {% if 'hasta-fecha' in property.0 %}
+                                                    {% set employee = property.0|split('hasta-fecha') %}
+                                                    Fin {{ employee[0]|replace({'-': ' '}) }} {{ attribute(value, "empleado-" ~ employee[0] ~ "-surname")|replace({'-': ' '}) }}<br>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-md-12 -->
+            </div>
+            <!-- /.row -->
+            {% endif %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top" data-panel-control>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Relación total de horas por trabajador del control de presencia <small>Descargar</small></h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chart-reportFicharByDate" class="op-chart"></div>
+                            <!-- /.src-code -->
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Horas</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for value in reportFicharByDate %}
+                                    <tr>
+                                        <td>
+                                            {{ value.employee }}
+                                        </td>
+                                        <td>
+                                            {{ value.hours }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-md-12 -->
+            </div>
+            <!-- /.row -->
+
+            {% if lastAbseceEmployeeId != 1 %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel border-primary no-border border-3-top" data-panel-control>
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <h5>Resumen de ausencia laboral <small>Descargar</small></h5>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div id="chart-abseceEmployee" class="op-chart"></div>
+                                <!-- /.src-code -->
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Inicio / Fin</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for value in reportAbsence %}
+                                        <tr>
+                                            <td>
+                                                {{ value.date }}
+                                            </td>
+                                            <td>
+                                                {% for property in value|cast_to_array %}
+                                                    {% if 'desde-fecha' in property.0 %}
+                                                        {% set employee = property.0|split('desde-fecha') %}
+                                                        Inicio {{ employee[0]|replace({'-': ' '}) }} {{ attribute(value, "empleado-" ~ employee[0] ~ "-surname")|replace({'-': ' '}) }}<br>
+                                                    {% endif %}
+                                                    {% if 'hasta-fecha' in property.0 %}
+                                                        {% set employee = property.0|split('hasta-fecha') %}
+                                                        Fin {{ employee[0]|replace({'-': ' '}) }} {{ attribute(value, "empleado-" ~ employee[0] ~ "-surname")|replace({'-': ' '}) }}<br>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-md-12 -->
+                </div>
+                <!-- /.row -->
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scriptsjs %}
+    <script type="text/javascript">
+        $(function(){
+            "use strict";
+
+            // chart reportHoursPerEmployeeByMonth
+            var chart = AmCharts.makeChart( "chart-reportHoursPerEmployeeByMonth", {
+                "type": "serial",
+                "theme": "light",
+                "fontFamily": "Poppins",
+                "dataProvider": {{ reportHoursPerEmployeeByMonthJSON|raw }},
+                "valueAxes": [ {
+                    "gridColor": "#FFFFFF",
+                    "gridAlpha": 0.2,
+                    "dashLength": 0
+                } ],
+                "gridAboveGraphs": true,
+                "startDuration": 1,
+                "graphs": [ {
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "fillAlphas": 0.8,
+                    "lineAlpha": 0.2,
+                    "type": "column",
+                    "valueField": "hours"
+                } ],
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+                "categoryField": "employee",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "gridAlpha": 0,
+                    "tickPosition": "start",
+                    "tickLength": 20
+                },
+                "export": {
+                    "enabled": true
+                }
+
+            } );
+
+            // chart reportCostPerEmployeeByEvent
+            var chartReportCostPerEmployeeByEvent = AmCharts.makeChart( "chart-reportCostPerEmployeeByEvent", {
+                "type": "serial",
+                "theme": "light",
+                "fontFamily": "Poppins",
+                "dataProvider": {{ reportCostPerEmployeeByEventJSON|raw }},
+                "valueAxes": [ {
+                    "gridColor": "#FFFFFF",
+                    "gridAlpha": 0.2,
+                    "dashLength": 0
+                } ],
+                "gridAboveGraphs": true,
+                "startDuration": 1,
+                "graphs": [ {
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "fillAlphas": 0.8,
+                    "lineAlpha": 0.2,
+                    "type": "column",
+                    "valueField": "cost"
+                } ],
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+                "categoryField": "event",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "gridAlpha": 0,
+                    "tickPosition": "start",
+                    "tickLength": 20
+                },
+                "export": {
+                    "enabled": true
+                }
+
+            } );
+
+            {% if lastEmployeeIdLow != 1 %}
+            // chart reportEmployeeLowByDate
+            var chartReportEmployeeLowByDate = AmCharts.makeChart( "chart-reportEmployeeLowByDate", {
+                "type": "serial",
+                "theme": "light",
+                "fontFamily": "Poppins",
+                "legend": {
+                    "equalWidths": false,
+                    "useGraphSettings": true,
+                    "valueAlign": "left",
+                    "valueWidth": 120
+                },
+                "dataProvider": {{ reportEmployeeLowByDateJSON|raw }},
+                "valueAxes": [
+                    {% set previousEmployee = '' %}
+                    {% for employee in reportEmployeeLowByDateEmployees %}
+                    {
+                        "id": "bajaAxis-{{ employee }}",
+                        "axisAlpha": 0,
+                        "gridAlpha": 0,
+                        "precision": 0,
+                        "baseValue": 0,
+                        "synchronizationMultiplier": 1,
+                        "synchronizeWith": "{% if previousEmployee is not empty %}bajaAxis-{{ previousEmployee }}{% endif %}",
+                        "maximum": {{ lastEmployeeIdLow }},
+                        "position": "left",
+                        "title": "",
+                        "type": "string"
+                    },
+                    {% set previousEmployee = employee %}
+                    {% endfor %}
+                ],
+                "graphs": [
+                    {% for employee in reportEmployeeLowByDateEmployees %}
+                    {
+                        "id": "{{ employee }}-desde-fecha",
+                        "balloonText": "Desde: [[{{ employee }}-desde-fecha]]",
+                        "bullet": "round",
+                        "bulletBorderAlpha": 1,
+                        "useLineColorForBulletBorder": false,
+                        "bulletColor": "#66ff00",
+                        "bulletBorderColor": "#66ff00",
+                        "descriptionField": "{{ employee }}-desde-fecha",
+                        "labelPosition": "right",
+                        "labelText": "[[empleado-{{ employee }}]]",
+                        "legendValueText": "[[description]]",
+                        "title": "Empleado {{ employee }} - Baja desde",
+                        "fillAlphas": 0,
+                        "valueField": "empleado-{{ employee }}-id",
+                        "valueAxis": "bajaAxis-{{ employee }}",
+                        "gapField": "{{ employee }}-hasta-fecha"
+                    },
+                    {
+                        "id": "{{ employee }}-hasta-fecha",
+                        "balloonText": "Hasta: [[{{ employee }}-hasta-fecha]]",
+                        "bullet": "round",
+                        "bulletBorderAlpha": 1,
+                        "useLineColorForBulletBorder": false,
+                        "bulletColor": "#66ff00",
+                        "bulletBorderColor": "#66ff00",
+                        "descriptionField": "{{ employee }}-hasta-fecha",
+                        "labelPosition": "right",
+                        "labelText": "[[empleado-{{ employee }}]]",
+                        "legendValueText": "[[description]]",
+                        "title": "Empleado {{ employee }} - Baja hasta",
+                        "fillAlphas": 0,
+                        "valueField": "empleado-{{ employee }}-id",
+                        "valueAxis": "bajaAxis-{{ employee }}",
+                        "gapField": "{{ employee }}-desde-fecha",
+                        "forceGap": true
+                    },
+                    {% endfor %}
+                ],
+                "chartCursor": {
+                    "categoryBalloonDateFormat": "DD",
+                    "cursorAlpha": 0.1,
+                    "cursorColor":"#000000",
+                    "fullWidth": true,
+                    "valueBalloonsEnabled": false,
+                    "zoomable": false
+                },
+                "dataDateFormat": "YYYY-MM-DD",
+                "categoryField": "date",
+                "categoryAxis": {
+                    "dateFormats": [{
+                        "period": "DD",
+                        "format": "DD"
+                    }, {
+                        "period": "WW",
+                        "format": "MMM DD"
+                    }, {
+                        "period": "MM",
+                        "format": "MMM"
+                    }, {
+                        "period": "YYYY",
+                        "format": "YYYY"
+                    }],
+                    "parseDates": true,
+                    "autoGridCount": false,
+                    "axisColor": "#555555",
+                    "gridAlpha": 0.1,
+                    "gridColor": "#FFFFFF",
+                    "gridCount": 100,
+                    "equalSpacing": false,
+                    "twoLineMode": true
+                },
+                "export": {
+                    "enabled": true
+                }
+
+            } );
+            {% endif %}
+
+            {% if lastEmployeeIdPersonalAffairs != 1 %}
+            // chart reportEmployeePersonalAffairsByDate
+            var chartReportEmployeePersonalAffairsByDate = AmCharts.makeChart( "chart-reportEmployeePersonalAffairsByDate", {
+                "type": "serial",
+                "theme": "light",
+                "fontFamily": "Poppins",
+                "legend": {
+                    "equalWidths": false,
+                    "useGraphSettings": true,
+                    "valueAlign": "left",
+                    "valueWidth": 120
+                },
+                "dataProvider": {{ reportEmployeePersonalAffairsByDateJSON|raw }},
+                "valueAxes": [
+                    {% set previousEmployee = '' %}
+                    {% for employee in reportEmployeePersonalAffairsByDateEmployees %}
+                    {
+                        "id": "bajaAxis-{{ employee }}",
+                        "axisAlpha": 0,
+                        "gridAlpha": 0,
+                        "precision": 0,
+                        "baseValue": 0,
+                        "synchronizationMultiplier": 1,
+                        "synchronizeWith": "{% if previousEmployee is not empty %}bajaAxis-{{ previousEmployee }}{% endif %}",
+                        "maximum": {{ lastEmployeeIdPersonalAffairs }},
+                        "position": "left",
+                        "title": "",
+                        "type": "string"
+                    },
+                    {% set previousEmployee = employee %}
+                    {% endfor %}
+                ],
+                "graphs": [
+                    {% for employee in reportEmployeePersonalAffairsByDateEmployees %}
+                    {
+                        "id": "{{ employee }}-desde-fecha",
+                        "balloonText": "Desde: [[{{ employee }}-desde-fecha]]",
+                        "bullet": "round",
+                        "bulletBorderAlpha": 1,
+                        "useLineColorForBulletBorder": false,
+                        "bulletColor": "#66ff00",
+                        "bulletBorderColor": "#66ff00",
+                        "descriptionField": "{{ employee }}-desde-fecha",
+                        "labelPosition": "right",
+                        "labelText": "[[empleado-{{ employee }}]]",
+                        "legendValueText": "[[description]]",
+                        "title": "Empleado {{ employee }} - Desde",
+                        "fillAlphas": 0,
+                        "valueField": "empleado-{{ employee }}-id",
+                        "valueAxis": "bajaAxis-{{ employee }}",
+                        "gapField": "{{ employee }}-hasta-fecha"
+                    },
+                    {
+                        "id": "{{ employee }}-hasta-fecha",
+                        "balloonText": "Hasta: [[{{ employee }}-hasta-fecha]]",
+                        "bullet": "round",
+                        "bulletBorderAlpha": 1,
+                        "useLineColorForBulletBorder": false,
+                        "bulletColor": "#66ff00",
+                        "bulletBorderColor": "#66ff00",
+                        "descriptionField": "{{ employee }}-hasta-fecha",
+                        "labelPosition": "right",
+                        "labelText": "[[empleado-{{ employee }}]]",
+                        "legendValueText": "[[description]]",
+                        "title": "Empleado {{ employee }} - Hasta",
+                        "fillAlphas": 0,
+                        "valueField": "empleado-{{ employee }}-id",
+                        "valueAxis": "bajaAxis-{{ employee }}",
+                        "gapField": "{{ employee }}-desde-fecha",
+                        "forceGap": true
+                    },
+                    {% endfor %}
+                ],
+                "chartCursor": {
+                    "categoryBalloonDateFormat": "DD",
+                    "cursorAlpha": 0.1,
+                    "cursorColor":"#000000",
+                    "fullWidth": true,
+                    "valueBalloonsEnabled": false,
+                    "zoomable": false
+                },
+                "dataDateFormat": "YYYY-MM-DD",
+                "categoryField": "date",
+                "categoryAxis": {
+                    "dateFormats": [{
+                        "period": "DD",
+                        "format": "DD"
+                    }, {
+                        "period": "WW",
+                        "format": "MMM DD"
+                    }, {
+                        "period": "MM",
+                        "format": "MMM"
+                    }, {
+                        "period": "YYYY",
+                        "format": "YYYY"
+                    }],
+                    "parseDates": true,
+                    "autoGridCount": false,
+                    "axisColor": "#555555",
+                    "gridAlpha": 0.1,
+                    "gridColor": "#FFFFFF",
+                    "gridCount": 100,
+                    "equalSpacing": false,
+                    "twoLineMode": true
+                },
+                "export": {
+                    "enabled": true
+                }
+
+            } );
+            {% endif %}
+
+            // chart reportFicharByDate
+            var chartReportFicharByDate = AmCharts.makeChart( "chart-reportFicharByDate", {
+                "type": "serial",
+                "theme": "light",
+                "fontFamily": "Poppins",
+                "dataProvider": {{ reportFicharByDateJSON|raw }},
+                "valueAxes": [ {
+                    "gridColor": "#FFFFFF",
+                    "gridAlpha": 0.2,
+                    "dashLength": 0
+                } ],
+                "gridAboveGraphs": true,
+                "startDuration": 1,
+                "graphs": [ {
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "fillAlphas": 0.8,
+                    "lineAlpha": 0.2,
+                    "type": "column",
+                    "valueField": "hours"
+                } ],
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+                "categoryField": "employee",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "gridAlpha": 0,
+                    "tickPosition": "start",
+                    "tickLength": 20
+                },
+                "export": {
+                    "enabled": true
+                }
+
+            } );
+
+            {% if lastAbseceEmployeeId != 1 %}
+            // chart reportEmployeePersonalAffairsByDate
+            var chartAbseceEmployee = AmCharts.makeChart( "chart-abseceEmployee", {
+                "type": "serial",
+                "theme": "light",
+                "fontFamily": "Poppins",
+                "legend": {
+                    "equalWidths": false,
+                    "useGraphSettings": true,
+                    "valueAlign": "left",
+                    "valueWidth": 120
+                },
+                "dataProvider": {{ reportAbsenceJSON|raw }},
+                "valueAxes": [
+                    {% set previousEmployee = '' %}
+                    {% for employee in reportAbsenceEmployee %}
+                    {
+                        "id": "bajaAxis-{{ employee }}",
+                        "axisAlpha": 0,
+                        "gridAlpha": 0,
+                        "precision": 0,
+                        "baseValue": 0,
+                        "synchronizationMultiplier": 1,
+                        "synchronizeWith": "{% if previousEmployee is not empty %}bajaAxis-{{ previousEmployee }}{% endif %}",
+                        "maximum": {{ lastAbseceEmployeeId }},
+                        "position": "left",
+                        "title": "",
+                        "type": "string"
+                    },
+                    {% set previousEmployee = employee %}
+                    {% endfor %}
+                ],
+                "graphs": [
+                    {% for employee in reportAbsenceEmployee %}
+                    {
+                        "id": "{{ employee }}-desde-fecha",
+                        "balloonText": "Desde: [[{{ employee }}-desde-fecha]]",
+                        "bullet": "round",
+                        "bulletBorderAlpha": 1,
+                        "useLineColorForBulletBorder": false,
+                        "bulletColor": "#66ff00",
+                        "bulletBorderColor": "#66ff00",
+                        "descriptionField": "{{ employee }}-desde-fecha",
+                        "labelPosition": "right",
+                        "labelText": "[[empleado-{{ employee }}]]",
+                        "legendValueText": "[[description]]",
+                        "title": "Empleado {{ employee }} - Desde",
+                        "fillAlphas": 0,
+                        "valueField": "empleado-{{ employee }}-id",
+                        "valueAxis": "bajaAxis-{{ employee }}",
+                        "gapField": "{{ employee }}-hasta-fecha"
+                    },
+                    {
+                        "id": "{{ employee }}-hasta-fecha",
+                        "balloonText": "Hasta: [[{{ employee }}-hasta-fecha]]",
+                        "bullet": "round",
+                        "bulletBorderAlpha": 1,
+                        "useLineColorForBulletBorder": false,
+                        "bulletColor": "#66ff00",
+                        "bulletBorderColor": "#66ff00",
+                        "descriptionField": "{{ employee }}-hasta-fecha",
+                        "labelPosition": "right",
+                        "labelText": "[[empleado-{{ employee }}]]",
+                        "legendValueText": "[[description]]",
+                        "title": "Empleado {{ employee }} - Hasta",
+                        "fillAlphas": 0,
+                        "valueField": "empleado-{{ employee }}-id",
+                        "valueAxis": "bajaAxis-{{ employee }}",
+                        "gapField": "{{ employee }}-desde-fecha",
+                        "forceGap": true
+                    },
+                    {% endfor %}
+                ],
+                "chartCursor": {
+                    "categoryBalloonDateFormat": "DD",
+                    "cursorAlpha": 0.1,
+                    "cursorColor":"#000000",
+                    "fullWidth": true,
+                    "valueBalloonsEnabled": false,
+                    "zoomable": false
+                },
+                "dataDateFormat": "YYYY-MM-DD",
+                "categoryField": "date",
+                "categoryAxis": {
+                    "dateFormats": [{
+                        "period": "DD",
+                        "format": "DD"
+                    }, {
+                        "period": "WW",
+                        "format": "MMM DD"
+                    }, {
+                        "period": "MM",
+                        "format": "MMM"
+                    }, {
+                        "period": "YYYY",
+                        "format": "YYYY"
+                    }],
+                    "parseDates": true,
+                    "autoGridCount": false,
+                    "axisColor": "#555555",
+                    "gridAlpha": 0.1,
+                    "gridColor": "#FFFFFF",
+                    "gridCount": 100,
+                    "equalSpacing": false,
+                    "twoLineMode": true
+                },
+                "export": {
+                    "enabled": true
+                }
+
+            } );
+            {% endif %}
+        });
+    </script>
+{% endblock %}

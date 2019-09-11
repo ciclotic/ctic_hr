@@ -1,0 +1,68 @@
+{% extends "/Crud/form.html.twig" %}
+{% import '/Form/theme.html.twig' as formTheme %}
+
+{% block content %}
+    <div class="container-fluid create-{{ metadata.name|lower }}">
+        <div class="row page-title-div">
+            <div class="col-md-12">
+                <h4 class="title">Crear novación contractual</h4>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row breadcrumb-div">
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                    <li class="active">Crear novación contractual</li>
+                </ul>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+
+        <div class="container-fluid section">
+            <div class="row">
+                <div class="col-md-12">
+                    Crear novación contractual
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-12">
+        <form  name="{{ form.vars.name }}"
+               method="{{ form.vars.method }}"
+               action="{{ path('GET_' ~ metadata.parameters.route.root ~ '_novacion_' ~  metadata.parameters.route.actions.create) }}"
+        >
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ formTheme.form_row(form.children.employee) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ formTheme.form_row(form.children.fromDate) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ formTheme.form_row(form.children.contractualDate) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ formTheme.form_row(form.children.hours) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% include '/Form/Buttons/_create.html.twig' with {'paths': {'cancel': path('GET_' ~ metadata.parameters.route.root ~ '_novacion_' ~  metadata.parameters.route.actions.create, configuration.vars.route.parameters|default({}))}} %}
+        </form>
+        </div>
+        </div>
+    </div>
+{% endblock %}

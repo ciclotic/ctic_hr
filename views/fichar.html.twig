@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestión RRHH - Fichar - cicloTIC</title>
+
+    <!-- ========== COMMON STYLES ========== -->
+    <link rel="stylesheet" href="/lib/options-admin/css/bootstrap.min.css" media="screen" >
+    <link rel="stylesheet" href="/lib/options-admin/css/font-awesome.min.css" media="screen" >
+    <link rel="stylesheet" href="/lib/options-admin/css/animate-css/animate.min.css" media="screen" >
+
+    <!-- ========== PAGE STYLES ========== -->
+    <link rel="stylesheet" href="/lib/options-admin/css/prism/prism.css" media="screen" > <!-- USED FOR DEMO HELP - YOU CAN REMOVE IT -->
+
+    <!-- ========== THEME CSS ========== -->
+    <link rel="stylesheet" href="/lib/options-admin/css/main.css" media="screen" >
+
+    <!-- ========== OWN CSS ========== -->
+    <link rel="stylesheet" href="/css/main.css" media="screen" >
+
+    {% block stylesheets %}{% endblock %}
+
+    <!-- ========== MODERNIZR ========== -->
+    <script src="/lib/options-admin/js/modernizr/modernizr.min.js"></script>
+</head>
+<body class="background-fichar">
+<div class="main-wrapper">
+
+    <div class="">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="section">
+                    <div class="row mt-40">
+                        <div class="col-md-6 col-md-offset-3 pt-50">
+                            <div class="row mt-10 ">
+                                <div class="col-md-11">
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <div class="panel-title text-center">
+                                                <h4 class="fichar_titulo">Fichar</h4>
+                                                <h6 class="fichar_ultimo">Último en fichar: {% if employee is empty %}nadie{% else %}{{ employee.name }} a las {{ date }} ({% if inOut == 1 %}Entrada{% else %}Salida{% endif %}){% endif %}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body p-20">
+                                            <form class="form-horizontal" method="POST" action="/fichar">
+                                                <input type="hidden" name="latitude">
+                                                <input type="hidden" name="longitude">
+                                                <div class="form-group">
+                                                    <label for="inputInOut" class="col-sm-3 control-label">Entrada / Salida</label>
+                                                    <div class="col-sm-4">
+                                                        <select name="inOut" class="form-control input-lg" id="inputInOut">
+                                                            <option value="1" {% if inOut == 1 %}selected="selected"{% endif %}>Entrada</option>
+                                                            <option value="0" {% if inOut == 0 %}selected="selected"{% endif %}>Salida</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputBarcode" class="col-sm-3 control-label">Cádigo de barras</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="barcode" class="form-control input-lg" id="inputBarcode" autofocus placeholder="Código de barras">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mt-20">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-success btn-labeled pull-right">Enviar<span class="btn-label btn-label-right"><i class="fa fa-check"></i></span></button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- /.text-center -->
+
+                                        </div>
+                                    </div>
+                                    <!-- /.panel -->
+                                    <p class="text-muted text-center"><small>Copyright © cicloTIC {{ "now"|date("Y") }}</small></p>
+                                </div>
+                                <!-- /.col-md-11 -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.col-md-12 -->
+                    </div>
+                    <!-- /.row -->
+                </section>
+
+            </div>
+            <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /. -->
+
+</div>
+<!-- /.main-wrapper -->
+
+<!-- ========== COMMON JS FILES ========== -->
+<script src="/lib/options-admin/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="/lib/options-admin/js/jquery-ui/jquery-ui.min.js"></script>
+<script src="/lib/options-admin/js/bootstrap/bootstrap.min.js"></script>
+<script src="/lib/options-admin/js/pace/pace.min.js"></script>
+<script src="/lib/options-admin/js/lobipanel/lobipanel.min.js"></script>
+<script src="/lib/options-admin/js/iscroll/iscroll.js"></script>
+
+<!-- ========== PAGE JS FILES ========== -->
+
+<!-- ========== THEME JS ========== -->
+<script src="/lib/options-admin/js/main.js"></script>
+
+<script type="application/javascript">
+    var latitude = $("input[name='latitude']");
+    var longitude = $("input[name='longitude']");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(setPosition);
+        }
+    }
+
+    function setPosition(position) {
+        latitude.val(position.coords.latitude);
+        longitude.val(position.coords.longitude);
+
+        return true;
+    }
+
+    getLocation();
+</script>
+
+{% block scriptsjs %}{% endblock %}
+</body>
+</html>

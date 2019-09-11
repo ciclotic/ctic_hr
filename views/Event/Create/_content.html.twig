@@ -1,0 +1,45 @@
+{% import '/Form/theme.html.twig' as formTheme %}
+
+<div class="row">
+    <div class="col-md-12">
+        <form  name="{{ form.vars.name }}" method="{{ form.vars.method }}" action="{{ path('GET_' ~ metadata.parameters.route.root ~ '_' ~  metadata.parameters.route.actions.create) }}">
+            <div class="row">
+                <div class="col-md-4">
+                    {{ formTheme.form_row(form.children.name) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    {{ formTheme.form_row(form.children.description) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ formTheme.form_row(form.children.iCalUID) }}
+                </div>
+            </div>
+            <div class="row" id="fromDate">
+                <div class="col-md-6">
+                    {{ formTheme.form_row(form.children.fromDate) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ formTheme.form_row(form.children.shiftChangeDate) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ formTheme.form_row(form.children.toDate) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    {{ formTheme.form_row(form.children.eventEmployee) }}
+                </div>
+            </div>
+            <br>
+            {% include '/Form/Buttons/_create.html.twig' with {'paths': {'cancel': path('GET_' ~ metadata.parameters.route.root ~ '_' ~  metadata.parameters.route.actions.list, configuration.vars.route.parameters|default({}))}} %}
+        </form>
+    </div>
+</div>

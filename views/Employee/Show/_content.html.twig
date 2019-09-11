@@ -1,0 +1,148 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Datos personales</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Nombre</label>
+                                {{ resource.name }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Apellidos</label>
+                                {{ resource.surname }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>DNI</label>
+                                {{ resource.dni }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Seguridad social</label>
+                                {{ resource.socialSecurity }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Número de cuenta</label>
+                                {{ resource.accountNumber }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Teléfono</label>
+                                {{ resource.phone }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Dirección</label>
+                                {{ resource.address }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Correo electrónico</label>
+                                {{ resource.email }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Datos trabajo</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Categoría</label>
+                                {% for employeeCategory in resource.employeeCategory %}
+                                    {{ employeeCategory.name }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Código de barras</label>
+                                {{ resource.barcode }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Interno / Subcontratado</label>
+                                {{ (resource.contractType is empty)? 'Interno' : 'Subcontratado' }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Jornada fija / flexible</label>
+                                {{ (resource.workingDayType is empty)? 'Fija' : 'Flexible' }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Usuario relacionado</label>
+                                {% if resource.userRelated %}
+                                    {{ resource.userRelated.name }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Área</label>
+                                {% for employeeArea in resource.employeeArea %}
+                                    {{ employeeArea.name }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Coste hora</label>
+                                {{ resource.costPerHour }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Precio hora</label>
+                                {{ resource.pricePerHour }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Coste fijo / hora</label>
+                                {{ (resource.pricePerHourType is empty)? 'Fijo' : 'Hora' }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Habilitado</label>
+                                {{ (resource.enabled is empty)? 'No' : 'Si' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        {% include '/Form/Buttons/_cancel.html.twig' with {'paths': {'cancel': path('GET_' ~ metadata.parameters.route.root ~ '_' ~  metadata.parameters.route.actions.list, configuration.vars.route.parameters|default({}))}} %}
+    </div>
+</div>

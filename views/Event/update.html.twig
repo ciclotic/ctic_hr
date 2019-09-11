@@ -1,0 +1,57 @@
+{% extends "/Crud/form.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid update-{{ metadata.name|lower }}">
+        {% include '/Crud/Form/_header.html.twig' %}
+
+        {% include '/Event/Update/_content.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block scriptsjs %}
+    <script type="text/javascript" src="/js/datatables.min.js"></script>
+    <script src="/lib/options-admin/js/ckeditor/ckeditor.js"></script>
+    <script>
+        $(function($) {
+            CKEDITOR.replace('ctic_app_event_description');
+
+            function selectAvailableEmployees(message) {
+                $("#eventemployee tr").each(function() {
+                    $(this).removeClass('success');
+                });
+                $(message).each(function(element) {
+                    $("#eventemployee tr:contains('" + message[element] + "')").addClass('success');
+                });
+            }
+
+            $('#eventemployee').DataTable( {
+                "order": [[ 1, "asc" ]],
+                "paging": false
+            } );
+
+            $('#fromDate select').change(function() {
+                var date = $('#ctic_app_event_fromDate_date_year').val() + '-' +
+                    $('#ctic_app_event_fromDate_date_month').val() + '-' +
+                    $('#ctic_app_event_fromDate_date_day').val();
+
+                var jqxhr = $.ajax( "/trabajadores/disponibles?date=" + date )
+                    .done(function(message) {
+                        selectAvailableEmployees(message);
+                    });
+            });
+
+            var dateStart = $('#ctic_app_event_fromDate_date_year').val() + '-' +
+                $('#ctic_app_event_fromDate_date_month').val() + '-' +
+                $('#ctic_app_event_fromDate_date_day').val();
+
+            $.ajax( "/trabajadores/disponibles?date=" + dateStart )
+                .done(function(message) {
+                    selectAvailableEmployees(message);
+                });
+        });
+    </script>
+{% endblock %}
